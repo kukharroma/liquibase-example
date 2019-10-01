@@ -24,7 +24,7 @@
 
 
     <!--NEW FEATURES in Release 1.1-->
-    <include file="sql/releases/release_1.1/update_pwd_users.sql"/>
+<!--    <include file="sql/releases/release_1.1/update_pwd_users.sql"/>-->
 
 
 </databaseChangeLog>

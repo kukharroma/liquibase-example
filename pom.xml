@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>liquibase.example</groupId>
+    <artifactId>liquibase.example</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>database</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.6.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <liquibase-core.version>3.6.3</liquibase-core.version>
+        <liquibase.maven.plugin.version>3.6.3</liquibase.maven.plugin.version>
+        <assembly.plugin.version>3.1.1</assembly.plugin.version>
+        <failsafe-plugin.version>3.0.0-M3</failsafe-plugin.version>
+        <skip.embedded.docker>false</skip.embedded.docker>
+        <io.fabric8.version>0.30.0</io.fabric8.version>
+
+        <db.postgres.host>localhost</db.postgres.host>
+        <db.postgres.port>5555</db.postgres.port>
+        <db.postgres.database>postgres</db.postgres.database>
+        <db.postgres.username>postgres</db.postgres.username>
+        <db.postgres.password>postgres</db.postgres.password>
+    </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${assembly.plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgument>-parameters</compilerArgument>
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${failsafe-plugin.version}</version>
+                <configuration>
+                    <environmentVariables>
+
+                        <db.postgres.host>${db.postgres.host}</db.postgres.host>
+                        <db.postgres.port>${db.postgres.port}</db.postgres.port>
+                        <db.postgres.database>${db.postgres.database}</db.postgres.database>
+                        <db.postgres.username>${db.postgres.username}</db.postgres.username>
+                        <db.postgres.password>${db.postgres.password}</db.postgres.password>
+
+                    </environmentVariables>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${io.fabric8.version}</version>
+                    <configuration>
+                        <skip>${skip.embedded.docker}</skip>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+    </build>
+
+</project>

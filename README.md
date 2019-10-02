@@ -41,6 +41,7 @@ cd database/
 mvn clean install && mvn liquibase:update
 ```
 
+#### Uncomment line in db.changelog-master.xml
 If you uncomment line in file  db.changelog-master.xml
 and update database as described below you will see some changes in table users.
 So try this shit.

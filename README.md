@@ -29,7 +29,7 @@ mvn clean install && mvn liquibase:dropAll liquibase:update
 
 #### Parameter 'contexts' in db.changelog-master.xml
 - contexts=test -> means that scripts in test package will be executed
-- contexts=prod -> means that scripts in test package will be executed 
+- contexts=prod -> means that scripts in prod package will be executed 
 
 In sql files on the second line you can see 'contexts' parameter.
 So liquibase match on this parameter when you change 'contexts' in db.changelog-master.xml
